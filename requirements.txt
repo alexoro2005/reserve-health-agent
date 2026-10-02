@@ -6,3 +6,5 @@ python-dotenv
 brotli
 zstandard
 jupyterlab
+fastapi
+uvicorn
