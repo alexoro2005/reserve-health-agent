@@ -1,4 +1,8 @@
 pandas
 numpy
 anthropic
+httpx
 python-dotenv
+brotli
+zstandard
+jupyterlab

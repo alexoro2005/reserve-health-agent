@@ -5,13 +5,13 @@ export.xml is ~1.4 GB, so we stream it line by line straight out of the zip
 (no unzipping, low memory) and keep only the data types the project needs.
 Writes one CSV per table into ./data/.
 
-Run:  python parse_health.py "path/to/AO Apple Watch Health.zip"
+Run:  python parse_health.py   (reads raw/AO Apple Watch Health.zip by default)
 """
 import csv, io, re, sys, time, zipfile
 from pathlib import Path
 
 HERE = Path(__file__).parent
-ZIP_PATH = Path(sys.argv[1]) if len(sys.argv) > 1 else HERE.parent / "AO Apple Watch Health.zip"
+ZIP_PATH = Path(sys.argv[1]) if len(sys.argv) > 1 else HERE / "raw" / "AO Apple Watch Health.zip"
 OUT = HERE / "data"
 OUT.mkdir(exist_ok=True)
 

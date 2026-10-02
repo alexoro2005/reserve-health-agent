@@ -44,7 +44,7 @@ weights, so conclusions don't hinge on the exact split.
 ## Running it
 ```bash
 pip install -r requirements.txt
-python parse_health.py "path/to/export.zip"
+python parse_health.py "path/to/export.zip"   # default: raw/AO Apple Watch Health.zip
 python build_daily.py
 python scores.py
 ```
