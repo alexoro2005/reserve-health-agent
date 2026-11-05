@@ -5,3 +5,12 @@ raw/
 error_log.txt
 .env.txt
 .ipynb_checkpoints/
+dashboard/node_modules/
+dashboard/.next/
+
+# Also keep out of GitHub
+dashboard_src.zip
+Claude outputs/
+*.db
+*.zip
+dashboard/.env.local

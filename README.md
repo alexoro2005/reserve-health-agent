@@ -4,7 +4,7 @@ Reserve turns ~1,000 days of my own Apple Watch data into a daily **Readiness sc
 explains *why* the score moved, and lets me ask an AI agent (Claude) questions about my own
 recovery — and run small experiments on my habits.
 
-> Status: in progress. Pipeline, scoring model, AI agent, database and API complete; dashboard next.
+> Status: working end to end locally (pipeline → model → database → agent → API → dashboard). Public deployment next.
 
 ## Why this project
 Wearables tell you a score, not the reasoning behind it. Reserve is built to be transparent:
@@ -20,6 +20,7 @@ the agent only states numbers it pulled from the data.
 | 4. Database | `build_db.py` — loads daily scores and workouts into SQLite | `data/reserve.db` |
 | 5. Agent | `agent.py` — Claude + 6 tools (incl. read-only SQL) in a tool-use loop | answers in plain English |
 | 6. API | `api.py` — FastAPI endpoints for the dashboard (`/api/today`, `/api/trend`, `/api/ask`, …) | JSON |
+| 7. Dashboard | `dashboard/` — Next.js + shadcn/ui client-facing dashboard (KPI cards, readiness trend, score drivers, patterns, "Ask the data") | web app |
 
 ## The agent
 Claude never sees the raw data. It answers by calling tools that run in Python — `get_days`, `get_summary`,
@@ -51,7 +52,8 @@ weights, so conclusions don't hinge on the exact split.
 - [x] Readiness model with explanations
 - [x] AI agent (Claude + tool use) that answers questions from the data
 - [x] SQLite storage + FastAPI backend
-- [ ] Next.js dashboard
+- [x] Next.js + shadcn/ui dashboard (light/dark, mobile-friendly)
+- [ ] Public deployment (Vercel + Render) with rate limiting
 - [ ] Habit experiments (before/after with effect size)
 
 ## Running it
@@ -62,5 +64,12 @@ python build_daily.py
 python scores.py
 python build_db.py
 uvicorn api:app --reload      # then open http://127.0.0.1:8000/docs
+
+# in a second terminal
+cd dashboard
+npm install
+npm run dev                   # then open http://localhost:3000
 ```
-Personal health data (`data/`) and the API key (`.env`) are excluded from this repo.
+Personal health data (`data/`, `raw/`) and the API key (`.env`) are excluded from this repo.
+
+**Stack:** Python (pandas, NumPy), SQLite, FastAPI, Claude API (tool use), Next.js, React, TypeScript, Tailwind CSS, shadcn/ui, Recharts.
